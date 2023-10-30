@@ -18,6 +18,9 @@ class ProductItem extends StatelessWidget {
                       ListTile(
                         title: Text('Edit'),
                         leading: Icon(Icons.edit),
+                        onTap: (){
+                          ///Navigator.push(context, MaterialPageRoute(builder: (context)))
+                        },
                       ),
                       Divider(
                         height: 0,
