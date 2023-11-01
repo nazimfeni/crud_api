@@ -1,3 +1,4 @@
+import 'package:crud_api/screens/add_new_product_screen.dart';
 import 'package:flutter/material.dart';
 
 class ProductItem extends StatelessWidget {
@@ -18,8 +19,12 @@ class ProductItem extends StatelessWidget {
                       ListTile(
                         title: Text('Edit'),
                         leading: Icon(Icons.edit),
-                        onTap: (){
-                          ///Navigator.push(context, MaterialPageRoute(builder: (context)))
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const AddNewProductScreen()));
                         },
                       ),
                       Divider(
@@ -28,6 +33,9 @@ class ProductItem extends StatelessWidget {
                       ListTile(
                         title: Text('Delete'),
                         leading: Icon(Icons.delete_outline),
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
                       ),
                     ],
                   ));
