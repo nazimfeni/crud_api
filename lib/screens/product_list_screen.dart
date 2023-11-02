@@ -14,6 +14,7 @@ class ProductListScreen extends StatefulWidget {
 
 class _ProductListScreenState extends State<ProductListScreen> {
   List<Product> productList = [];
+  bool inProgress = false;
 
   @override
   void initState() {
@@ -23,6 +24,10 @@ class _ProductListScreenState extends State<ProductListScreen> {
   }
 
   void getProductList() async {
+    inProgress = true;
+    setState(() {
+
+    });
     Response response = await get(
       Uri.parse('https://crud.teamrabbil.com/api/v1/ReadProduct'),
     );
@@ -44,7 +49,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
         }
       }
     }
-
+    inProgress = false;
     print(productList.length);
     setState(() {
 
@@ -56,6 +61,11 @@ class _ProductListScreenState extends State<ProductListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Product List'),
+        actions: [
+          IconButton(onPressed: (){
+            getProductList();
+          }, icon: const Icon(Icons.refresh))
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -67,10 +77,10 @@ class _ProductListScreenState extends State<ProductListScreen> {
         },
         child: Icon(Icons.add),
       ),
-      body: ListView.separated(
+      body: inProgress ? Center(child: CircularProgressIndicator(),) : ListView.separated(
         itemCount: productList.length,
         itemBuilder: (context, index) {
-          return ProductItem();
+          return ProductItem(product: productList[index],);
         },
         separatorBuilder: (_, __) => Divider(),
       ),

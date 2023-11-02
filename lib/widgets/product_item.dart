@@ -1,8 +1,11 @@
 import 'package:crud_api/screens/add_new_product_screen.dart';
+import 'package:crud_api/screens/product_list_screen.dart';
 import 'package:flutter/material.dart';
 
 class ProductItem extends StatelessWidget {
-  const ProductItem({Key? key}) : super(key: key);
+  const ProductItem({Key? key, required this.product}) : super(key: key);
+
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -41,13 +44,19 @@ class ProductItem extends StatelessWidget {
                   ));
             });
       },
-      leading: Image.asset(
-        'images/product1.jpg',
+      leading: Image.network(
+        product.image,
         width: 80,
       ),
-      title: Text('Product Name'),
-      subtitle: Text('Product Description'),
-      trailing: Text('\$120'),
+      title: Text(product.productName),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(product.productCode),
+          Text('Total Price: ${product.totalPrice} ')
+        ],
+      ),
+      trailing: Text('\$${product.unitPrice}'),
     );
   }
 }
